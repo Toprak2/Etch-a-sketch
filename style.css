@@ -1,8 +1,8 @@
 .main-grid{
     display: flex;
     flex-wrap: wrap;
-    width: 800px;
-    height: 800px;
+    width: 600px;
+    height: 600px;
     gap:0px;
     justify-content: center;
     padding:50px;
