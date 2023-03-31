@@ -3,14 +3,10 @@
     flex-wrap: wrap;
     width: 800px;
     height: 800px;
-    gap:2px;
+    gap:0px;
     justify-content: center;
     padding:50px;
     border: 1px solid black;
-}
-.square{
-    width: 24%;
-    border: solid 1px black;
 }
 .hover{
     background-color: black;
