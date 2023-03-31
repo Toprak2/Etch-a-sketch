@@ -12,7 +12,7 @@ function createGrid(divAmount=16){
         square.style.height=`${squareWidth}px`;
         mainGrid.appendChild(square);
     }
-    addHover();
+    changeColor();
 }   
 //When page loads create the default grid
 createGrid();
@@ -24,11 +24,11 @@ function resetGrid(){
 }
 
 //add hover class to the divs
-function addHover(){
+function changeColor(){
+    const colorPicker=document.querySelector(".color-picker");
     const squares = document.querySelectorAll(".square");
-
     squares.forEach(square => square.addEventListener("mouseenter",function(){
-        this.classList.add("hover");
+        this.style.backgroundColor=`${colorPicker.value}`;
     }));
 }
 
