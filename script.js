@@ -3,13 +3,12 @@ console.log(mainGrid.clientWidth);
 
 let padding =100;
 function createGrid(divAmount=16){
-   
+
+    const squareWidth=(mainGrid.clientWidth-padding) / divAmount;
+
     for(let i=0;i<divAmount*divAmount;i++){
         const square = document.createElement("div");
         square.classList.add("square");
-
-        let squareWidth=(mainGrid.clientWidth-padding) / divAmount;
-
         square.style.width=`${squareWidth}px`;
         square.style.height=`${squareWidth}px`;
         mainGrid.appendChild(square);
@@ -18,6 +17,11 @@ function createGrid(divAmount=16){
 }   
 
 createGrid();
+
+function resetGrid(){
+    const squares = document.querySelectorAll(".square");
+    squares.forEach(square => square.remove());
+}
 
 function addHover(){
     const squares = document.querySelectorAll(".square");
@@ -29,8 +33,26 @@ function addHover(){
 
 const resetButton =document.querySelector(".reset");
 resetButton.addEventListener("click",function(){
-    const squares = document.querySelectorAll(".square");
-    squares.forEach(square => square.remove());
+    resetGrid();
     createGrid();
 });
+
+const newButton = document.querySelector(".new");
+
+newButton.addEventListener("click",function(){
+    let amount=prompt("enter the row number");
+    if(!isNaN(amount)){
+        amount = parseFloat(amount);
+        if(Number.isInteger(amount)){
+            resetGrid();
+            createGrid(amount);
+        }
+        else{
+            alert("please enter an integer");
+        }
+    }
+    else{
+        alert("please enter an integer");
+    }
+})
 
