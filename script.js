@@ -8,11 +8,21 @@ function Initialize(){
         square.classList.add("square");
         mainGrid.appendChild(square);
     }
+    addHover();
 }   
 Initialize();
 
-const squares = document.querySelectorAll(".square");
+function addHover(){
+    const squares = document.querySelectorAll(".square");
 
-squares.forEach(square => square.addEventListener("mouseenter",function(){
-    this.classList.add("hover");
-}))
+    squares.forEach(square => square.addEventListener("mouseenter",function(){
+        this.classList.add("hover");
+    }));
+}
+
+const resetButton =document.querySelector(".reset");
+resetButton.addEventListener("click",function(){
+    const squares = document.querySelectorAll(".square");
+    squares.forEach(square => square.remove());
+    Initialize();
+});
