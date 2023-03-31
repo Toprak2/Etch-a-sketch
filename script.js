@@ -23,12 +23,13 @@ function resetGrid(){
     squares.forEach(square => square.remove());
 }
 
-//add hover class to the divs
+//changes the color of the div
 function changeColor(){
     const colorPicker=document.querySelector(".color-picker");
     const squares = document.querySelectorAll(".square");
     squares.forEach(square => square.addEventListener("mouseenter",function(){
         this.style.backgroundColor=`${colorPicker.value}`;
+        this.classList.add("colored");
     }));
 }
 
@@ -63,14 +64,13 @@ newButton.addEventListener("click",function(){
     }
 });
 
-//remove the hover effect from the tiles 
+//remove the color effect from the tiles 
 const clearButton =document.querySelector(".clear");
 clearButton.addEventListener("click",function(){
-    const hoveredSquares = document.querySelectorAll(".hover");
-    hoveredSquares.forEach(square => square.classList.remove("hover")); 
+    const coloredSquares = document.querySelectorAll(".colored");
+    coloredSquares.forEach(function(square){
+        square.style.removeProperty("background-color");
+        square.classList.remove("colored");
+    }); 
 });
 
-clearButton.addEventListener("click",function(){
-    const hoveredSquares = document.querySelectorAll(".hover");
-    hoveredSquares.forEach(square => square.classList.remove("hover")); 
-});
