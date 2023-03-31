@@ -1,15 +1,22 @@
 const mainGrid = document.querySelector(".main-grid");
+console.log(mainGrid.clientWidth);
 
+let padding =100;
 function Initialize(){
    
-   
-    for(let i=0;i<16;i++){
+    for(let i=0;i<16*16;i++){
         const square = document.createElement("div");
         square.classList.add("square");
+
+        let squareWidth=(mainGrid.clientWidth-padding) / 16;
+
+        square.style.width=`${squareWidth}px`;
+        square.style.height=`${squareWidth}px`;
         mainGrid.appendChild(square);
     }
     addHover();
 }   
+
 Initialize();
 
 function addHover(){
@@ -26,3 +33,4 @@ resetButton.addEventListener("click",function(){
     squares.forEach(square => square.remove());
     Initialize();
 });
+
