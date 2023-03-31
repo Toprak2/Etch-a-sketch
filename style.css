@@ -1,0 +1,10 @@
+.main-grid{
+    display: flex;
+    flex-wrap: wrap;
+    width: 800px;
+    height: 800px;
+}
+.square{
+    width: 24.75%;
+    border: solid 1px black;
+}
