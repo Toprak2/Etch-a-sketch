@@ -10,3 +10,9 @@ function Initialize(){
     }
 }   
 Initialize();
+
+const squares = document.querySelectorAll(".square");
+
+squares.forEach(square => square.addEventListener("mouseenter",function(){
+    this.classList.add("hover");
+}))
