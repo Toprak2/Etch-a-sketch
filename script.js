@@ -54,5 +54,11 @@ newButton.addEventListener("click",function(){
     else{
         alert("please enter an integer");
     }
-})
+});
 
+const clearButton =document.querySelector(".clear");
+
+clearButton.addEventListener("click",function(){
+    const hoveredSquares = document.querySelectorAll(".hover");
+    hoveredSquares.forEach(square => square.classList.remove("hover")); 
+});
