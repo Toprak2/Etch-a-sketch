@@ -2,13 +2,13 @@ const mainGrid = document.querySelector(".main-grid");
 console.log(mainGrid.clientWidth);
 
 let padding =100;
-function Initialize(){
+function createGrid(divAmount=16){
    
-    for(let i=0;i<16*16;i++){
+    for(let i=0;i<divAmount*divAmount;i++){
         const square = document.createElement("div");
         square.classList.add("square");
 
-        let squareWidth=(mainGrid.clientWidth-padding) / 16;
+        let squareWidth=(mainGrid.clientWidth-padding) / divAmount;
 
         square.style.width=`${squareWidth}px`;
         square.style.height=`${squareWidth}px`;
@@ -17,7 +17,7 @@ function Initialize(){
     addHover();
 }   
 
-Initialize();
+createGrid();
 
 function addHover(){
     const squares = document.querySelectorAll(".square");
@@ -31,6 +31,6 @@ const resetButton =document.querySelector(".reset");
 resetButton.addEventListener("click",function(){
     const squares = document.querySelectorAll(".square");
     squares.forEach(square => square.remove());
-    Initialize();
+    createGrid();
 });
 
