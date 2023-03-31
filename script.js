@@ -70,4 +70,7 @@ clearButton.addEventListener("click",function(){
     hoveredSquares.forEach(square => square.classList.remove("hover")); 
 });
 
-
+clearButton.addEventListener("click",function(){
+    const hoveredSquares = document.querySelectorAll(".hover");
+    hoveredSquares.forEach(square => square.classList.remove("hover")); 
+});
