@@ -22,16 +22,31 @@ function resetGrid(){
     const squares = document.querySelectorAll(".square");
     squares.forEach(square => square.remove());
 }
-
+let leftClickedOnMainGrid=false;
 //changes the color of the div
 function changeColor(){
     const colorPicker=document.querySelector(".color-picker");
     const squares = document.querySelectorAll(".square");
-    squares.forEach(square => square.addEventListener("mouseenter",function(){
-        this.style.backgroundColor=`${colorPicker.value}`;
-        this.classList.add("colored");
+    squares.forEach(square => square.addEventListener("mousedown",function(e){
+            e.preventDefault();
+            this.style.backgroundColor=`${colorPicker.value}`;
+            this.classList.add("colored");
+            leftClickedOnTile=true;
     }));
+    squares.forEach(square =>square.addEventListener("mouseenter",function(){
+        if(leftClickedOnTile){
+            this.style.backgroundColor=`${colorPicker.value}`;
+            this.classList.add("colored");
+        }
+    }) );
+    squares.forEach(square =>square.addEventListener("mouseup",function(){
+        leftClickedOnTile=false;
+    }))
+
 }
+mainGrid.addEventListener("mouseleave",function(){
+    leftClickedOnTile=false;
+})
 
 //add functionality to reset button
 const resetButton =document.querySelector(".reset");
