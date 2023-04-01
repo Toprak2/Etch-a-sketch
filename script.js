@@ -22,7 +22,7 @@ function resetGrid(){
     const squares = document.querySelectorAll(".square");
     squares.forEach(square => square.remove());
 }
-let leftClickedOnMainGrid=false;
+let leftClickedOnTile=false;
 //changes the color of the div
 function changeColor(){
     const colorPicker=document.querySelector(".color-picker");
@@ -55,10 +55,11 @@ resetButton.addEventListener("click",function(){
     createGrid();
 });
 
+let amount=16;
 // ask user to input a number create a grid based on that number
 const newButton = document.querySelector(".new");
 newButton.addEventListener("click",function(){
-    let amount=prompt("enter a number between 0-100");  
+    amount=prompt("enter a number between 0-100");  
     if(!isNaN(amount)){
         amount = parseFloat(amount);
         if(Number.isInteger(amount)){
@@ -88,4 +89,48 @@ clearButton.addEventListener("click",function(){
         square.classList.remove("colored");
     }); 
 });
+
+//save function
+function createImage(divAmount){
+    let canvas=document.createElement("canvas");
+    let ctx=canvas.getContext("2d");
+
+    canvas.height=divAmount;
+    canvas.width=divAmount;
+    
+    let imgData=ctx.getImageData(0,0,divAmount,divAmount);
+    let data= imgData.data;
+ 
+    let Squares = document.querySelectorAll(".square");
+    Squares = Array.from(Squares);
+    let j=0;
+    for(let i=0;i<data.length;i+=4){
+
+        if(Squares[j].style.backgroundColor){
+            let rgb =Squares[j].style.backgroundColor.match(/\d+/g);
+            data[i]=parseInt(rgb[0]);
+            data[i+1]=parseInt(rgb[1]);
+            data[i+2]=parseInt(rgb[2]);
+            data[i+3]=255; 
+        }
+        else{
+            data[i]=255;
+            data[i+1]=255;
+            data[i+2]=255;
+            data[i+3]=255; 
+        }    
+        j++;
+    }
+    ctx.putImageData(imgData,0,0);
+    
+    let image = new Image();
+
+    image.src= canvas.toDataURL();
+    document.body.appendChild(image);
+}
+let downloadButton= document.querySelector(".download");
+downloadButton.addEventListener("click",function(){
+    createImage(amount);
+})
+
 
