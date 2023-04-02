@@ -128,9 +128,43 @@ function createImage(divAmount){
     image.src= canvas.toDataURL();
     document.body.appendChild(image);
 }
+//download button adds the image to the screen for now
 let downloadButton= document.querySelector(".download");
 downloadButton.addEventListener("click",function(){
-    createImage(amount);
+    createSVG(amount);
 })
 
+//create SVG image
+function createSVG(divAmount){
 
+    const iconSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    
+
+    iconSvg.setAttribute("width",`${divAmount}`);
+    iconSvg.setAttribute("height",`${divAmount}`);
+
+
+    let Squares = document.querySelectorAll(".square");
+    Squares = Array.from(Squares);
+
+    for(let y=0;y<divAmount;y++){
+        for(let x =0;x<divAmount;x++){
+            let pos=y*divAmount+x;
+            if(Squares[pos].style.backgroundColor){
+                const iconRect = document.createElementNS(
+                    'http://www.w3.org/2000/svg',
+                    'rect'
+                );
+                iconRect.setAttribute("x",`${x}`);
+                iconRect.setAttribute("y",`${y}`);
+                iconRect.setAttribute('width', '1');
+                iconRect.setAttribute('height', '1');
+                iconRect.setAttribute('style', `fill:${Squares[pos].style.backgroundColor}`);
+                iconSvg.appendChild(iconRect);
+            }
+        }
+    }
+
+    document.body.appendChild(iconSvg);
+
+}
