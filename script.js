@@ -2,8 +2,8 @@ const mainGrid = document.querySelector(".main-grid");
 
 //create 16*16 grid as default otherwise create an enteredAmount*enteredAmount grid
 function createGrid(divAmount=16){
-    let padding =100;
-    const squareWidth=(mainGrid.clientWidth-padding) / divAmount;
+    
+    const squareWidth=(mainGrid.clientWidth) / divAmount;
 
     for(let i=0;i<divAmount*divAmount;i++){
         const square = document.createElement("div");
@@ -114,7 +114,7 @@ function createImage(divAmount){
             data[i+3]=255; 
         }
         else{
-            data[i]=255;
+            data[i]=255;    
             data[i+1]=255;
             data[i+2]=255;
             data[i+3]=255; 
@@ -123,11 +123,7 @@ function createImage(divAmount){
     }
     ctx.putImageData(imgData,0,0);
     
-    let image = new Image();
-
-    image.src= canvas.toDataURL();
-    document.body.appendChild(canvas);
-    download(image.src,"name1");
+    download(canvas.toDataURL(),"name1");
 }
 //download button adds the image to the screen for now
 let downloadButton= document.querySelector(".download");
