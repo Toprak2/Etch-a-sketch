@@ -1,4 +1,13 @@
 const mainGrid = document.querySelector(".main-grid");
+let eraseSelected=false;
+const eraseButton=document.querySelector(".erase");
+const clearButton =document.querySelector(".clear");
+let leftClickedOnTile=false;
+const resetButton =document.querySelector(".reset");
+const newButton = document.querySelector(".new");
+let downloadButton= document.querySelector(".download");
+let brushButton=document.querySelector(".brush");  
+let brushSelected=true;
 
 //create 16*16 grid as default otherwise create an enteredAmount*enteredAmount grid
 function createGrid(divAmount=16){
@@ -13,6 +22,7 @@ function createGrid(divAmount=16){
         mainGrid.appendChild(square);
     }
     changeColor();
+    erase();
 }   
 //When page loads create the default grid
 createGrid();
@@ -22,25 +32,32 @@ function resetGrid(){
     const squares = document.querySelectorAll(".square");
     squares.forEach(square => square.remove());
 }
-let leftClickedOnTile=false;
+
 //changes the color of the div
 function changeColor(){
     const colorPicker=document.querySelector(".color-picker");
     const squares = document.querySelectorAll(".square");
+
     squares.forEach(square => square.addEventListener("mousedown",function(e){
+        if(brushSelected){
             e.preventDefault();
             this.style.backgroundColor=`${colorPicker.value}`;
             this.classList.add("colored");
             leftClickedOnTile=true;
+        }
     }));
     squares.forEach(square =>square.addEventListener("mouseenter",function(){
-        if(leftClickedOnTile){
-            this.style.backgroundColor=`${colorPicker.value}`;
-            this.classList.add("colored");
+        if(brushSelected){
+            if(leftClickedOnTile){
+                this.style.backgroundColor=`${colorPicker.value}`;
+                this.classList.add("colored");
+            }
         }
     }) );
     squares.forEach(square =>square.addEventListener("mouseup",function(){
+        if(brushSelected){
         leftClickedOnTile=false;
+        }
     }))
 
 }
@@ -49,7 +66,6 @@ mainGrid.addEventListener("mouseleave",function(){
 })
 
 //add functionality to reset button
-const resetButton =document.querySelector(".reset");
 resetButton.addEventListener("click",function(){
     resetGrid();
     createGrid();
@@ -57,7 +73,7 @@ resetButton.addEventListener("click",function(){
 
 let amount=16;
 // ask user to input a number create a grid based on that number
-const newButton = document.querySelector(".new");
+
 newButton.addEventListener("click",function(){
     amount=prompt("enter a number between 0-100");  
     if(!isNaN(amount)){
@@ -80,8 +96,8 @@ newButton.addEventListener("click",function(){
     }
 });
 
+
 //remove the color effect from the tiles 
-const clearButton =document.querySelector(".clear");
 clearButton.addEventListener("click",function(){
     const coloredSquares = document.querySelectorAll(".colored");
     coloredSquares.forEach(function(square){
@@ -125,8 +141,7 @@ function createImage(divAmount){
     
     download(canvas.toDataURL(),"name1");
 }
-//download button adds the image to the screen for now
-let downloadButton= document.querySelector(".download");
+
 downloadButton.addEventListener("click",function(){
     createImage(amount);
     
@@ -141,3 +156,41 @@ var download = function(href, name){
     link.click();
     link.remove();
   }
+
+eraseButton.addEventListener("click",function(){
+    brushSelected=false;
+    eraseSelected=true;
+  });
+
+  function erase(){
+    const squares = document.querySelectorAll(".square");
+
+    squares.forEach(square => square.addEventListener("mousedown",function(e){
+        if(eraseSelected){
+            e.preventDefault();
+            this.style.removeProperty("background-color");
+            this.classList.remove("colored");
+            leftClickedOnTile=true;
+        }
+    }));
+    squares.forEach(square =>square.addEventListener("mouseenter",function(){
+        if(eraseSelected){
+            if(leftClickedOnTile){
+                this.style.removeProperty("background-color");
+                this.classList.remove("colored");
+            }
+         }
+    }) );
+
+        squares.forEach(square =>square.addEventListener("mouseup",function(){
+            if(eraseSelected){
+                leftClickedOnTile=false;
+            }
+        }))
+    
+  }
+
+  brushButton.addEventListener("click",function(){
+    brushSelected=true;
+    eraseSelected=false;
+  })
