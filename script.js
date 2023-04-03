@@ -1,12 +1,12 @@
 const mainGrid = document.querySelector(".main-grid");
 let eraseSelected=false;
-const eraseButton=document.querySelector(".erase");
-const clearButton =document.querySelector(".clear");
+const eraseButton=document.querySelector("#erase");
+const clearButton =document.querySelector("#clear");
 let leftClickedOnTile=false;
-const resetButton =document.querySelector(".reset");
-const newButton = document.querySelector(".new");
-let downloadButton= document.querySelector(".download");
-let brushButton=document.querySelector(".brush");  
+const resetButton =document.querySelector("#reset");
+const newButton = document.querySelector("#new");
+let downloadButton= document.querySelector("#download");
+let brushButton=document.querySelector("#brush");  
 let brushSelected=true;
 
 //create 16*16 grid as default otherwise create an enteredAmount*enteredAmount grid
@@ -160,6 +160,7 @@ var download = function(href, name){
 eraseButton.addEventListener("click",function(){
     brushSelected=false;
     eraseSelected=true;
+
   });
 
   function erase(){
