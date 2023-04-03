@@ -160,7 +160,8 @@ var download = function(href, name){
 eraseButton.addEventListener("click",function(){
     brushSelected=false;
     eraseSelected=true;
-
+    document.querySelector("#erase").classList.add("selected");
+    document.querySelector("#brush").classList.remove("selected");
   });
 
   function erase(){
@@ -194,4 +195,6 @@ eraseButton.addEventListener("click",function(){
   brushButton.addEventListener("click",function(){
     brushSelected=true;
     eraseSelected=false;
+    document.querySelector("#erase").classList.remove("selected");
+    document.querySelector("#brush").classList.add("selected");
   })
