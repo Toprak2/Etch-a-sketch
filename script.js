@@ -8,6 +8,7 @@ const newButton = document.querySelector("#new");
 let downloadButton= document.querySelector("#download");
 let brushButton=document.querySelector("#brush");  
 let brushSelected=true;
+const showGridButton=document.querySelector("#showGrid");
 
 //create 16*16 grid as default otherwise create an enteredAmount*enteredAmount grid
 function createGrid(divAmount=16){
@@ -69,6 +70,9 @@ mainGrid.addEventListener("mouseleave",function(){
 resetButton.addEventListener("click",function(){
     resetGrid();
     createGrid();
+    if(showGridButton.classList.contains("selected")){
+        showGrid();
+    }
 });
 
 let amount=16;
@@ -93,6 +97,9 @@ newButton.addEventListener("click",function(){
     }
     else{
         alert("please enter an integer");
+    }
+    if(showGridButton.classList.contains("selected")){
+        showGrid();
     }
 });
 
@@ -197,4 +204,56 @@ eraseButton.addEventListener("click",function(){
     eraseSelected=false;
     document.querySelector("#erase").classList.remove("selected");
     document.querySelector("#brush").classList.add("selected");
+  })
+
+  function showGrid(){
+    let squares=document.querySelectorAll(".square");
+    squares= Array.from(squares);
+    let width=Math.sqrt(squares.length);
+    let height=width;
+    
+    //if height is even
+    if(height%2===0){
+        for(let y=0;y<height;y++){
+            for(let x=0;x<width;x++){
+                let pos=y*height+x;
+                if(y%2===0){
+                    if(pos%2===0){
+                        squares[pos].classList.toggle("grid-gray");
+                    }
+                }
+                else{
+                    if(pos%2===1){
+                        squares[pos].classList.toggle("grid-gray");
+                    }
+                }
+
+
+            }
+        }
+    }
+    //if the height is odd 
+    else{
+        for(let y=0;y<height;y++){
+            for(let x=0;x<width;x++){
+                let pos=y*height+x;
+                if(y%2===0){
+                    if(pos%2===0){
+                        squares[pos].classList.toggle("grid-gray");
+                    }
+                }
+                else{
+                    if(pos%2===0){
+                        squares[pos].classList.toggle("grid-gray");
+                    }
+                }
+
+
+            }
+        }
+    }
+  }
+  showGridButton.addEventListener("click",function(){
+    showGrid();
+    this.classList.toggle("selected");
   })
