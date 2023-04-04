@@ -11,18 +11,30 @@
 <body>
     <header>Etch a Sketch</header>
    
-    <div class="interactiveUserContent">
+    <div class="main">
         <div class="tools">
             <input type="color" class="color-picker">
-            <button id="brush">Brush</button>
-            <button id="erase">Eraser</button>
-            <button id="reset">Reset to Default </button>
-            <button id="new">New </button>
-            <button id="clear">Clear</button>
-            <button id="showGrid">Show Grid</button>
-            <button id="download">Download</button>
+            <button id="brush" class="selected dropdownbtn"><div class="button-text">Brush </div><img src="./images/name1 (20).png" alt=""></button>
+            <button id="erase"><div class="button-text"> Eraser</div></button>
+            <button id="clear"><div class="button-text"> Clear</div></button>
+            <button id="showGrid"><div class="button-text">Show Grid</div></button>
         </div>
+
         <div class="main-grid"></div>
-    </div>
+
+        <div class="tools kek">
+            <button id="new"><div class="button-text">New </div><img src="./images/new-icon.png" class="button-icon"></button>
+            <button id="reset"><div class="button-text">Reset to Default</div> </button>
+            <div class="dropdown">
+                <button id="download"><div class="button-text dropdown"> Download </div> <img src="./images/download-icon.png" class="button-icon""> </button>
+                <div id="myDropdown" class="dropdown-content">
+                  <button id="download-transparent">Transparent Background</button>
+                  <button id=" download-white">White Background</button>
+                </div>
+              </div>
+           
+        </div>
+    </div
+
 </body>
 </html>
