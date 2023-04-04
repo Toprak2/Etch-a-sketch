@@ -7,8 +7,8 @@ const newButton = document.querySelector("#new");
 let downloadButton= document.querySelector("#download");
 let brushButton=document.querySelector("#brush");  
 const showGridButton=document.querySelector("#showGrid");
-const transparentDownloadButton =document.getElementById("download-transparent");
-const whiteDownloadButton= document.getElementById("download-white");
+const transparentDownloadButton =document.querySelector("#download-transparent");
+const whiteDownloadButton= document.querySelector("#download-white");
 const dropdown = document.querySelector(".dropdown");
 
 //global variables
@@ -120,7 +120,7 @@ clearButton.addEventListener("click",function(){
 });
 
 //save function
-function createImage(divAmount){
+function createAndDownloadImage(divAmount,mode){
     let canvas=document.createElement("canvas");
     let ctx=canvas.getContext("2d");
 
@@ -133,27 +133,50 @@ function createImage(divAmount){
     let Squares = document.querySelectorAll(".square");
     Squares = Array.from(Squares);
     let j=0;
-    for(let i=0;i<data.length;i+=4){
+    if(mode==="white"){
+        for(let i=0;i<data.length;i+=4){
 
-        if(Squares[j].style.backgroundColor){
-            let rgb =Squares[j].style.backgroundColor.match(/\d+/g);
-            data[i]=parseInt(rgb[0]);
-            data[i+1]=parseInt(rgb[1]);
-            data[i+2]=parseInt(rgb[2]);
-            data[i+3]=255;
+            if(Squares[j].style.backgroundColor){
+                let rgb =Squares[j].style.backgroundColor.match(/\d+/g);
+                data[i]=parseInt(rgb[0]);
+                data[i+1]=parseInt(rgb[1]);
+                data[i+2]=parseInt(rgb[2]);
+                data[i+3]=255;
+            }
+            else{
+                data[i]=255;
+                data[i+1]=255;
+                data[i+2]=255;
+                data[i+3]=255;
+            }
+            j++;
         }
-        else{
-            data[i]=255;
-            data[i+1]=255;
-            data[i+2]=255;
-            data[i+3]=255;
+    }else{
+        for(let i=0;i<data.length;i+=4){
+
+            if(Squares[j].style.backgroundColor){
+                let rgb =Squares[j].style.backgroundColor.match(/\d+/g);
+                data[i]=parseInt(rgb[0]);
+                data[i+1]=parseInt(rgb[1]);
+                data[i+2]=parseInt(rgb[2]);
+                data[i+3]=255;
+            }
+            j++;
         }
-        j++;
     }
     ctx.putImageData(imgData,0,0);
 
     download(canvas.toDataURL(),"name1");
 }
+let download = function(href, name){
+    let link = document.createElement('a');
+    link.download = name;
+    link.style.opacity = "0";
+    document.body.appendChild(link);
+    link.href = href;
+    link.click();
+    link.remove();
+  }
 
 //download buttons open a dropdown
 downloadButton.addEventListener("mouseenter",function(){
@@ -173,15 +196,14 @@ dropdown.addEventListener("mouseleave",function(){
     }
 })
 
-var download = function(href, name){
-    var link = document.createElement('a');
-    link.download = name;
-    link.style.opacity = "0";
-    document.body.appendChild(link);
-    link.href = href;
-    link.click();
-    link.remove();
-  }
+transparentDownloadButton.addEventListener("click",function(){
+    createAndDownloadImage(amount,"transparent");
+});
+
+whiteDownloadButton.addEventListener("click",function(){
+    createAndDownloadImage(amount,"white");
+});
+
 
 eraseButton.addEventListener("click",function(){
     brushSelected=false;
