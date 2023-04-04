@@ -12,7 +12,7 @@ const showGridButton=document.querySelector("#showGrid");
 
 //create 16*16 grid as default otherwise create an enteredAmount*enteredAmount grid
 function createGrid(divAmount=16){
-    
+
     const squareWidth=(mainGrid.clientWidth) / divAmount;
 
     for(let i=0;i<divAmount*divAmount;i++){
@@ -42,16 +42,14 @@ function changeColor(){
     squares.forEach(square => square.addEventListener("mousedown",function(e){
         if(brushSelected){
             e.preventDefault();
-            this.style.backgroundColor=`${colorPicker.value}`;
-            this.classList.add("colored");
+            draw(this);
             leftClickedOnTile=true;
         }
     }));
     squares.forEach(square =>square.addEventListener("mouseenter",function(){
         if(brushSelected){
             if(leftClickedOnTile){
-                this.style.backgroundColor=`${colorPicker.value}`;
-                this.classList.add("colored");
+                draw(this);
             }
         }
     }) );
@@ -120,10 +118,10 @@ function createImage(divAmount){
 
     canvas.height=divAmount;
     canvas.width=divAmount;
-    
+
     let imgData=ctx.getImageData(0,0,divAmount,divAmount);
     let data= imgData.data;
- 
+
     let Squares = document.querySelectorAll(".square");
     Squares = Array.from(Squares);
     let j=0;
@@ -134,24 +132,24 @@ function createImage(divAmount){
             data[i]=parseInt(rgb[0]);
             data[i+1]=parseInt(rgb[1]);
             data[i+2]=parseInt(rgb[2]);
-            data[i+3]=255; 
+            data[i+3]=255;
         }
         else{
-            data[i]=255;    
+            data[i]=255;
             data[i+1]=255;
             data[i+2]=255;
-            data[i+3]=255; 
-        }    
+            data[i+3]=255;
+        }
         j++;
     }
     ctx.putImageData(imgData,0,0);
-    
+
     download(canvas.toDataURL(),"name1");
 }
 
 downloadButton.addEventListener("click",function(){
     createImage(amount);
-    
+
 })
 
 var download = function(href, name){
@@ -196,7 +194,7 @@ eraseButton.addEventListener("click",function(){
                 leftClickedOnTile=false;
             }
         }))
-    
+
   }
 
   brushButton.addEventListener("click",function(){
@@ -211,7 +209,7 @@ eraseButton.addEventListener("click",function(){
     squares= Array.from(squares);
     let width=Math.sqrt(squares.length);
     let height=width;
-    
+
     //if height is even
     if(height%2===0){
         for(let y=0;y<height;y++){
@@ -232,7 +230,7 @@ eraseButton.addEventListener("click",function(){
             }
         }
     }
-    //if the height is odd 
+    //if the height is odd
     else{
         for(let y=0;y<height;y++){
             for(let x=0;x<width;x++){
@@ -257,3 +255,53 @@ eraseButton.addEventListener("click",function(){
     showGrid();
     this.classList.toggle("selected");
   })
+
+  let brushSize=5       ;
+  function draw(currentDiv){
+
+    const colorPicker=document.querySelector(".color-picker");
+    let squares = document.querySelectorAll(".square");
+    squares = Array.from(squares);
+    let height=Math.sqrt(squares.length);
+    let index =squares.indexOf(currentDiv);
+    for(let i=brushSize-1;i>-brushSize;i--){
+        if(i>0){
+            for(let j=brushSize-i-1;j>-(brushSize-i);j--){
+                //check if the element we are trying to reach is inside the array's bounds
+                if((index+j+height*i)<squares.length && (index+j+height)>-1){
+                    
+                    squares[index+j+height*i].style.backgroundColor=`${colorPicker.value}`;
+                    squares[index+j+height*i].classList.add("colored");
+                }
+                else{
+                    console.log("out");
+                }
+            }
+        }
+        if(i===0){
+            for(let j=brushSize-1;j>=-(brushSize-1);j--){
+                if((index+j+height*i)<squares.length && (index+j+height)>-1){
+                    squares[index+j+height*i].style.backgroundColor=`${colorPicker.value}`;
+                    squares[index+j+height*i].classList.add("colored");
+                }
+            }
+        }
+        if(i<0){
+            for(let j=brushSize+i-1;j>-(brushSize+i);j--){
+                //check if the element we are trying to reach is inside the array's bounds
+                if((index+j+height*i)>-1){
+                    console.log(index+j+height*i);
+                    squares[index+j+height*i].style.backgroundColor=`${colorPicker.value}`;
+                    squares[index+j+height*i].classList.add("colored");
+                }
+                else{
+                    console.log("out");
+                }
+            }
+        }
+    }
+
+}
+
+
+
