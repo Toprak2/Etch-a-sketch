@@ -96,7 +96,8 @@ body{
     position: absolute;
     z-index: 1;
     padding: 15px;
-    background-color: #ecb9aa;
+    left: -3px;
+    border: 3px solid  #ecb9aa;
     border-radius: 5px;
     margin-top: 1px;
   }
