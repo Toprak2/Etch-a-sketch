@@ -52,7 +52,7 @@ button{
     font-size: 16px;
     font-family: Arial, Helvetica, sans-serif;
     display: flex;
-    
+    min-width: 130px;
 }
 button:active{
     transform: scale(0.98);
@@ -62,7 +62,7 @@ button:hover{
     transform: scale(1.05);
 }
 .selected{
-    background-color: #0084ff;
+    background-color: #aabcec;
     border-color: black;
 }
 .color-picker{
@@ -90,6 +90,7 @@ body{
     position: relative;
     display: inline-block;
     width: 100%;
+    transition: 0.5s;
 }
 .dropdown-content {
     display: none;
@@ -100,20 +101,26 @@ body{
     border: 3px solid  #ecb9aa;
     border-radius: 5px;
     margin-top: 1px;
+    transition: 0.5s;
   }
 
 .show {
     display:flex;
     flex-wrap: wrap;
-    gap:15px
+    gap:15px;
+    transition: 0.5s;
 }
 .button-icon{
-    width: 20px;
-    display: block;
+    width: 23px;
+    display: inline;
     margin: 0px;
     padding: 0px;
 }
 .button-text{
     flex-grow: 1;
-
+    padding-top: 3px;
+    padding-right: 2px;
+}
+.clear-icon{
+    padding-top: 4px;
 }
