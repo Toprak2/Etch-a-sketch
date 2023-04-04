@@ -1,14 +1,23 @@
+//global page elements
 const mainGrid = document.querySelector(".main-grid");
-let eraseSelected=false;
 const eraseButton=document.querySelector("#erase");
 const clearButton =document.querySelector("#clear");
-let leftClickedOnTile=false;
 const resetButton =document.querySelector("#reset");
 const newButton = document.querySelector("#new");
 let downloadButton= document.querySelector("#download");
 let brushButton=document.querySelector("#brush");  
-let brushSelected=true;
 const showGridButton=document.querySelector("#showGrid");
+const transparentDownloadButton =document.getElementById("download-transparent");
+const whiteDownloadButton= document.getElementById("download-white");
+const dropdown = document.querySelector(".dropdown");
+
+//global variables
+let brushSelected=true;
+let leftClickedOnTile=false;
+let amount=16;
+let brushSize=1;
+let eraseSelected=false;
+
 
 //create 16*16 grid as default otherwise create an enteredAmount*enteredAmount grid
 function createGrid(divAmount=16){
@@ -73,9 +82,8 @@ resetButton.addEventListener("click",function(){
     }
 });
 
-let amount=16;
-// ask user to input a number create a grid based on that number
 
+// ask user to input a number create a grid based on that number
 newButton.addEventListener("click",function(){
     amount=prompt("enter a number between 0-100");  
     if(!isNaN(amount)){
@@ -147,9 +155,22 @@ function createImage(divAmount){
     download(canvas.toDataURL(),"name1");
 }
 
-downloadButton.addEventListener("click",function(){
-    createImage(amount);
+//download buttons open a dropdown
+downloadButton.addEventListener("mouseenter",function(){
+        document.getElementById("download-dropdown").classList.toggle("show");
 
+});
+
+//removing cursor from the dropdown hides the dropdown menu
+dropdown.addEventListener("mouseleave",function(){
+    let dropdowns = document.getElementsByClassName("dropdown-content");
+    let i;
+    for (i = 0; i < dropdowns.length; i++) {
+      let openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
 })
 
 var download = function(href, name){
@@ -169,7 +190,7 @@ eraseButton.addEventListener("click",function(){
     document.querySelector("#brush").classList.remove("selected");
   });
 
-  function erase(){
+function erase(){
     const squares = document.querySelectorAll(".square");
 
     squares.forEach(square => square.addEventListener("mousedown",function(e){
@@ -195,7 +216,7 @@ eraseButton.addEventListener("click",function(){
             }
         }))
 
-  }
+}
 
   brushButton.addEventListener("click",function(){
     brushSelected=true;
@@ -256,7 +277,7 @@ eraseButton.addEventListener("click",function(){
     this.classList.toggle("selected");
   })
 
-  let brushSize=5       ;
+ 
   function draw(currentDiv){
 
     const colorPicker=document.querySelector(".color-picker");
