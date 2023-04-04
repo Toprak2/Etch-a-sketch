@@ -79,3 +79,6 @@ button:hover{
 body{
     background-color: #e7e7e7;
 }
+.grid-gray{
+    background-color: rgb(224, 222, 222);
+}
