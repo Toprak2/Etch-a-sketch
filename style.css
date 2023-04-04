@@ -27,6 +27,7 @@ header{
     padding: 20px;
     padding-bottom: 60px;
     font-weight: bold;
+    letter-spacing: 2px;
 }
 .interactiveUserContent{
     display: flex;
