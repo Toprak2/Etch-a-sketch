@@ -145,7 +145,7 @@ showGridButton.addEventListener("click",function(){
     this.classList.toggle("selected");
   })
 
-  
+
 //create 16*16 grid as default otherwise create an enteredAmount*enteredAmount grid
 function createGrid(divAmount=16){
 
@@ -332,51 +332,68 @@ function erase(){
 
 
  
-  function draw(currentDiv){
+function draw(currentDiv){
 
-    const colorPicker=document.querySelector(".color-picker");
-    let squares = document.querySelectorAll(".square");
-    squares = Array.from(squares);
-    let height=Math.sqrt(squares.length);
-    let index =squares.indexOf(currentDiv);
-    for(let i=brushSize-1;i>-brushSize;i--){
-        if(i>0){
-            for(let j=brushSize-i-1;j>-(brushSize-i);j--){
-                //check if the element we are trying to reach is inside the array's bounds
-                if((index+j+height*i)<squares.length && (index+j+height)>-1){
-                    
-                    squares[index+j+height*i].style.backgroundColor=`${colorPicker.value}`;
-                    squares[index+j+height*i].classList.add("colored");
-                }
-                else{
-                    console.log("out");
-                }
-            }
-        }
-        if(i===0){
-            for(let j=brushSize-1;j>=-(brushSize-1);j--){
-                if((index+j+height*i)<squares.length && (index+j+height)>-1){
-                    squares[index+j+height*i].style.backgroundColor=`${colorPicker.value}`;
-                    squares[index+j+height*i].classList.add("colored");
-                }
-            }
-        }
-        if(i<0){
-            for(let j=brushSize+i-1;j>-(brushSize+i);j--){
-                //check if the element we are trying to reach is inside the array's bounds
-                if((index+j+height*i)>-1){
-                    console.log(index+j+height*i);
-                    squares[index+j+height*i].style.backgroundColor=`${colorPicker.value}`;
-                    squares[index+j+height*i].classList.add("colored");
-                }
-                else{
-                    console.log("out");
+const colorPicker=document.querySelector(".color-picker");
+let squares = document.querySelectorAll(".square");
+squares = Array.from(squares);
+let height=Math.sqrt(squares.length);
+let index =squares.indexOf(currentDiv);
+for(let i=brushSize-1;i>-brushSize;i--){
+    if(i>0){
+        for(let j=brushSize-i-1;j>-(brushSize-i);j--){
+            let divToDraw=index+j+height*i;
+
+            //check if the element we are trying to reach is inside the array's bounds
+            if((divToDraw)<squares.length && (index+j+height)>-1){
+                
+                let divYPos= Math.trunc(divToDraw/height);
+                let rowToDraw=Math.trunc((index+height*i)/height);
+                if(divYPos===rowToDraw){
+                    squares[divToDraw].style.backgroundColor=`${colorPicker.value}`;
+                    squares[divToDraw].classList.add("colored");
                 }
             }
         }
     }
+    if(i===0){
+        for(let j=brushSize-1;j>=-(brushSize-1);j--){
+            let divToDraw=index+j+height*i;
 
+            //check if the element we are trying to reach is inside the array's bounds
+            if((divToDraw)<squares.length && (index+j+height)>-1){
+                let divYPos= Math.trunc(divToDraw/height);
+                let rowToDraw=Math.trunc((index+height*i)/height);
+                if(divYPos===rowToDraw){
+                squares[divToDraw].style.backgroundColor=`${colorPicker.value}`;
+                squares[divToDraw].classList.add("colored");
+                }
+            }
+        }
+    }
+    if(i<0){
+        for(let j=brushSize+i-1;j>-(brushSize+i);j--){
+            let divToDraw=index+j+height*i;
+
+            //check if the element we are trying to reach is inside the array's bounds
+                if((divToDraw)>-1){
+                    //if the divs are above the grid don't draw
+                    if(index+height*i<0){
+                        continue;
+                    }
+                    let divYPos= Math.trunc(divToDraw/height);
+                    let rowToDraw=Math.trunc((index+height*i)/height);
+                    if(divYPos===rowToDraw){
+                    squares[divToDraw].style.backgroundColor=`${colorPicker.value}`;
+                    squares[divToDraw].classList.add("colored");
+                    }
+                }
+            }
+        }
+    }
 }
+
+
 
 
 
