@@ -44,7 +44,6 @@ header{
 button{
     display: block;
     padding: 10px 15px;
-    width: 100%;
     cursor: pointer;
     background-color:#aaddec;
     border-radius: 5px;
@@ -89,7 +88,7 @@ body{
 .dropdown {
     position: relative;
     display: inline-block;
-    width: 100%;
+  
     transition: 0.5s;
 }
 .dropdown-content {
@@ -104,7 +103,7 @@ body{
     transition: 0.5s;
   }
 
-.show {
+.show-dropdown {
     display:flex;
     flex-wrap: wrap;
     gap:15px;
@@ -123,4 +122,7 @@ body{
 }
 .clear-icon{
     padding-top: 4px;
+}
+.hide{
+    display: none;
 }
