@@ -123,6 +123,23 @@ body{
 .clear-icon{
     padding-top: 4px;
 }
+
+.size-area{
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 150px;
+    justify-content: center;
+    gap: 5px;
+    border: solid 3px #ecb9aa;
+    border-radius: 5px;
+} 
 .hide{
     display: none;
+}
+input[type="number"]{
+    padding: 10px 0;
+    text-align: center;
+}
+input[type="range"]{
+    max-width: 100px;
 }
