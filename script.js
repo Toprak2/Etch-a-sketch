@@ -3,7 +3,7 @@ const mainGrid = document.querySelector(".main-grid");
 const eraseButton=document.querySelector("#erase");
 const clearButton =document.querySelector("#clear");
 const resetButton =document.querySelector("#reset");
-const newButton = document.querySelector("#new");
+const newGridRange = document.querySelector("#new-grid-range")
 let downloadButton= document.querySelector("#download");
 let brushButton=document.querySelector("#brush");  
 const showGridButton=document.querySelector("#showGrid");
@@ -51,6 +51,9 @@ eraserSizeNumber.addEventListener("input",function(){
     eraserSize=size;
     eraserSizeRange.value=size;  
 });
+newGridRange.addEventListener("change",function(){
+    document.querySelector("#new-grid-value").value=newGridRange.value;
+})
 
 //add functionality to reset button
 resetButton.addEventListener("click",function(){
@@ -69,31 +72,6 @@ brushButton.addEventListener("click",function(){
     document.querySelector("#brush-size").classList.remove("hide");
     document.querySelector("#eraser-size").classList.add("hide");
   })
-// ask user to input a number create a grid based on that number
-newButton.addEventListener("click",function(){
-    amount=prompt("enter a number between 0-100");  
-    if(!isNaN(amount)){
-        amount = parseFloat(amount);
-        if(Number.isInteger(amount)){
-            if(amount>100 || amount<0)
-            {
-                alert("Please enter a number between 0-100");
-                return;
-            }
-            resetGrid();
-            createGrid(amount);
-        }
-        else{
-            alert("please enter an integer");
-        }
-    }
-    else{
-        alert("please enter an integer");
-    }
-    if(showGridButton.classList.contains("selected")){
-        showGrid();
-    }
-});
 
 //remove the color effect from the tiles 
 clearButton.addEventListener("click",function(){
