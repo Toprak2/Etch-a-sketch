@@ -15,12 +15,17 @@
         <div class="tools">
             <input type="color" class="color-picker">
             <button id="brush" class="selected"><div class="button-text">Brush </div><img src="./images/brush-icon.png" class="button-icon"></button>
-            <div id="brush-size" class="hide">
+            <div id="brush-size" >
                 <div>Brush Size</div>
                 <input type="range" min="1" max="100 id="brush-size-range">
-                <input type="number" min="1" max="100">px
+                <input type="number" min="1" max="100" id="brush-size-number">px
             </div>
             <button id="erase"><div class="button-text"> Eraser</div><img src="./images/eraser-icon.png" class="button-icon" "></button>
+            <div id="eraser-size" class="hide">
+                <div>Eraser Size</div>
+                <input type="range" min="1" max="100" id="eraser-size-range">
+                <input type="number" min="1" max="100" id="eraser-size-number">px
+            </div>
             <button id="clear"><div class="button-text"> Clear</div><img src="./images/clear-icon.png "  class="button-icon clear-icon"></button>
             <button id="showGrid"><div class="button-text">Show Grid</div><img src="./images/grid-icon.png" class="button-icon"></button>
         </div>
