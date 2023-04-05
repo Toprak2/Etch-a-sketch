@@ -40,9 +40,9 @@ header{
     flex-direction: column;
     gap:20px;
     align-items: center;
+    max-width: 150px;
 }
 button{
-    display: block;
     padding: 10px 15px;
     cursor: pointer;
     background-color:#aaddec;
@@ -133,13 +133,36 @@ body{
     border: solid 3px #ecb9aa;
     border-radius: 5px;
 } 
-.hide{
-    display: none;
-}
+
 input[type="number"]{
     padding: 10px 0;
     text-align: center;
 }
 input[type="range"]{
     max-width: 100px;
+    display: block;
+}
+.hide{
+    display: none;
+}
+#new-grid{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    font-size: 16px;
+    font-family:Arial, Helvetica, sans-serif ;
+}
+.confirm{
+    padding: 0;
+    cursor: pointer;
+    border: none;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    flex: 0;
+    background-color: initial;
+    min-width: initial;
+    max-width: max-content;
+    border-radius: 50%;
 }
