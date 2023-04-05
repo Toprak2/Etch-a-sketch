@@ -10,6 +10,10 @@ const showGridButton=document.querySelector("#showGrid");
 const transparentDownloadButton =document.querySelector("#download-transparent");
 const whiteDownloadButton= document.querySelector("#download-white");
 const dropdown = document.querySelector(".dropdown");
+const brushSizeRange=document.querySelector("#brush-size-range");
+const brushSizeNumber=document.querySelector("#brush-size-Number");
+const eraserSizeRange=document.querySelector("#eraser-size-range");
+const eraserSizeNumber=document.querySelector("#eraser-size-Number");
 
 //global variables
 let brushSelected=true;
@@ -180,7 +184,7 @@ let download = function(href, name){
 
 //download buttons open a dropdown
 downloadButton.addEventListener("mouseenter",function(){
-        document.getElementById("download-dropdown").classList.toggle("show");
+        document.getElementById("download-dropdown").classList.toggle("show-dropdown");
 
 });
 
@@ -190,8 +194,8 @@ dropdown.addEventListener("mouseleave",function(){
     let i;
     for (i = 0; i < dropdowns.length; i++) {
       let openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
+      if (openDropdown.classList.contains('show-dropdown')) {
+        openDropdown.classList.remove('show-dropdown');
       }
     }
 })
@@ -245,6 +249,8 @@ function erase(){
     eraseSelected=false;
     document.querySelector("#erase").classList.remove("selected");
     document.querySelector("#brush").classList.add("selected");
+    document.querySelector("#brush-size").classList.remove("hide");
+    document.querySelector("#eraser-size").classList.add("hide");
   })
 
   function showGrid(){
