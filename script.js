@@ -3,7 +3,8 @@ const mainGrid = document.querySelector(".main-grid");
 const eraseButton=document.querySelector("#erase");
 const clearButton =document.querySelector("#clear");
 const resetButton =document.querySelector("#reset");
-const newGridRange = document.querySelector("#new-grid-range")
+const newGridRange = document.querySelector("#new-grid-range");
+const confirmButton =document.querySelector("#confirm");
 let downloadButton= document.querySelector("#download");
 let brushButton=document.querySelector("#brush");  
 const showGridButton=document.querySelector("#showGrid");
@@ -51,8 +52,20 @@ eraserSizeNumber.addEventListener("input",function(){
     eraserSize=size;
     eraserSizeRange.value=size;  
 });
-newGridRange.addEventListener("change",function(){
-    document.querySelector("#new-grid-value").value=newGridRange.value;
+newGridRange.addEventListener("input",function(){
+   let displayText= document.querySelector("#new-grid-value");
+   let value =newGridRange.value;
+   let newText = value+"X"+value;
+   displayText.textContent =newText;
+})
+
+confirmButton.addEventListener("click",function(){
+    let value=parseInt(newGridRange.value);
+    resetGrid();
+    createGrid(value);
+    if(showGridButton.classList.contains("selected")){
+        showGrid();
+    }
 })
 
 //add functionality to reset button
@@ -428,66 +441,7 @@ for(let i=brushSize-1;i>-brushSize;i--){
         }
     }
 }
-function draw(currentDiv){
 
-const colorPicker=document.querySelector(".color-picker");
-let squares = document.querySelectorAll(".square");
-squares = Array.from(squares);
-let height=Math.sqrt(squares.length);
-let index =squares.indexOf(currentDiv);
-for(let i=brushSize-1;i>-brushSize;i--){
-    if(i>0){
-        for(let j=brushSize-i-1;j>-(brushSize-i);j--){
-            let divToDraw=index+j+height*i;
-
-            //check if the element we are trying to reach is inside the array's bounds
-            if((divToDraw)<squares.length && (index+j+height)>-1){
-                
-                let divYPos= Math.trunc(divToDraw/height);
-                let rowToDraw=Math.trunc((index+height*i)/height);
-                if(divYPos===rowToDraw){
-                    squares[divToDraw].style.backgroundColor=`${colorPicker.value}`;
-                    squares[divToDraw].classList.add("colored");
-                }
-            }
-        }
-    }
-    if(i===0){
-        for(let j=brushSize-1;j>=-(brushSize-1);j--){
-            let divToDraw=index+j+height*i;
-
-            //check if the element we are trying to reach is inside the array's bounds
-            if((divToDraw)<squares.length && (index+j+height)>-1){
-                let divYPos= Math.trunc(divToDraw/height);
-                let rowToDraw=Math.trunc((index+height*i)/height);
-                if(divYPos===rowToDraw){
-                squares[divToDraw].style.backgroundColor=`${colorPicker.value}`;
-                squares[divToDraw].classList.add("colored");
-                }
-            }
-        }
-    }
-    if(i<0){
-        for(let j=brushSize+i-1;j>-(brushSize+i);j--){
-            let divToDraw=index+j+height*i;
-
-            //check if the element we are trying to reach is inside the array's bounds
-                if((divToDraw)>-1){
-                    //if the divs are above the grid don't draw
-                    if(index+height*i<0){
-                        continue;
-                    }
-                    let divYPos= Math.trunc(divToDraw/height);
-                    let rowToDraw=Math.trunc((index+height*i)/height);
-                    if(divYPos===rowToDraw){
-                    squares[divToDraw].style.backgroundColor=`${colorPicker.value}`;
-                    squares[divToDraw].classList.add("colored");
-                    }
-                }
-            }
-        }
-    }
-}
 
 
 
