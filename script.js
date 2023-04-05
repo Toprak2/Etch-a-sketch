@@ -11,17 +11,39 @@ const transparentDownloadButton =document.querySelector("#download-transparent")
 const whiteDownloadButton= document.querySelector("#download-white");
 const dropdown = document.querySelector(".dropdown");
 const brushSizeRange=document.querySelector("#brush-size-range");
-const brushSizeNumber=document.querySelector("#brush-size-Number");
+const brushSizeNumber=document.querySelector("#brush-size-number");
 const eraserSizeRange=document.querySelector("#eraser-size-range");
-const eraserSizeNumber=document.querySelector("#eraser-size-Number");
+const eraserSizeNumber=document.querySelector("#eraser-size-number");
 
 //global variables
 let brushSelected=true;
 let leftClickedOnTile=false;
 let amount=16;
 let brushSize=1;
+let eraserSize=1;
 let eraseSelected=false;
 
+brushSizeRange.addEventListener("input",function(){
+    let size = parseInt(this.value);
+    brushSize=size;
+    brushSizeNumber.value=size;
+});
+brushSizeNumber.addEventListener("input",function(){
+    let size = parseInt(this.value);
+    brushSize=size;
+    brushSizeRange.value=size;  
+});
+
+eraserSizeRange.addEventListener("input",function(){
+    let size = parseInt(this.value);
+    eraserSize=size;
+    eraserSizeNumber.value=size;
+});
+eraserSizeNumber.addEventListener("input",function(){
+    let size = parseInt(this.value);
+    eraserSize=size;
+    eraserSizeRange.value=size;  
+});
 
 //create 16*16 grid as default otherwise create an enteredAmount*enteredAmount grid
 function createGrid(divAmount=16){
@@ -214,6 +236,8 @@ eraseButton.addEventListener("click",function(){
     eraseSelected=true;
     document.querySelector("#erase").classList.add("selected");
     document.querySelector("#brush").classList.remove("selected");
+    document.querySelector("#eraser-size").classList.remove("hide");
+    document.querySelector("#brush-size").classList.add("hide");
   });
 
 function erase(){
