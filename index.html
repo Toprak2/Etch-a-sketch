@@ -15,16 +15,16 @@
         <div class="tools">
             <input type="color" class="color-picker">
             <button id="brush" class="selected"><div class="button-text">Brush </div><img src="./images/brush-icon.png" class="button-icon"></button>
-            <div id="brush-size" >
+            <div id="brush-size" class="size-area">
                 <div>Brush Size</div>
-                <input type="range" min="1" max="100 id="brush-size-range">
-                <input type="number" min="1" max="100" id="brush-size-number">px
+                <input type="range" min="1" max="100 id="brush-size-range" value="1">
+                <input type="number" min="1" max="100" id="brush-size-number" value="1">
             </div>
             <button id="erase"><div class="button-text"> Eraser</div><img src="./images/eraser-icon.png" class="button-icon" "></button>
-            <div id="eraser-size" class="hide">
+            <div id="eraser-size" class="hide size-area">
                 <div>Eraser Size</div>
-                <input type="range" min="1" max="100" id="eraser-size-range">
-                <input type="number" min="1" max="100" id="eraser-size-number">px
+                <input type="range" min="1" max="100" id="eraser-size-range" value="1">
+                <input type="number" min="1" max="100" id="eraser-size-number" value="1">
             </div>
             <button id="clear"><div class="button-text"> Clear</div><img src="./images/clear-icon.png "  class="button-icon clear-icon"></button>
             <button id="showGrid"><div class="button-text">Show Grid</div><img src="./images/grid-icon.png" class="button-icon"></button>
@@ -34,7 +34,7 @@
 
         <div class="tools ">
             <button id="new"><div class="button-text">New </div><img src="./images/new-icon.png" class="button-icon"></button>
-            <button id="reset"><div class="button-text">Rese</div> </button>
+            <button id="reset"><div class="button-text">Reset</div> </button>
             <div class="dropdown">
                 <button id="download" class="dropdown-button" ><div class="button-text"> Download </div> <img src="./images/download-icon.png" class="button-icon""> </button>
                 <div id="download-dropdown" class="dropdown-content">
