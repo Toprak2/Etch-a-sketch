@@ -63,6 +63,7 @@ confirmButton.addEventListener("click",function(){
     let value=parseInt(newGridRange.value);
     resetGrid();
     createGrid(value);
+    amount=value;
     if(showGridButton.classList.contains("selected")){
         showGrid();
     }
@@ -204,6 +205,7 @@ function createAndDownloadImage(divAmount,mode){
     if(mode==="white"){
         for(let i=0;i<data.length;i+=4){
 
+
             if(Squares[j].style.backgroundColor){
                 let rgb =Squares[j].style.backgroundColor.match(/\d+/g);
                 data[i]=parseInt(rgb[0]);
@@ -245,6 +247,64 @@ let download = function(href, name){
     link.click();
     link.remove();
   }
+document.querySelector("#upload").addEventListener("change",function(event){
+    const imageFile = URL.createObjectURL(event.target.files[0]);
+    createImage(imageFile, convertImage);
+})
+function createImage(imageFile, callback) {
+    
+    const image = document.createElement('img');
+    image.onload = () => callback(image);
+    image.setAttribute('src', imageFile);
+  };
+  
+function convertImage(image) {
+
+    const canvas = drawImageToCanvas(image);
+    if(canvas.height>100){
+        alert("Please enter an image with 100x100 max pixel size");
+        return;
+    }
+    const ctx = canvas.getContext('2d',);
+    let result = [];
+    for (let y = 0; y < canvas.height; y++) {
+        for (let x = 0; x < canvas.width; x++) {
+            result.push([]);
+        let data = ctx.getImageData(x, y, 1, 1).data;
+        let index=y*canvas.height+x;
+        result[index].push(data[0]);
+        result[index].push(data[1]);
+        result[index].push(data[2]);
+        }
+    }
+
+    let length = Math.sqrt(result.length);
+    resetGrid();
+    amount=length;
+    createGrid(length);
+    let squares =document.querySelectorAll(".square");
+    squares =Array.from(squares);
+    for(let index=0;index<result.length;index++){
+
+        let r= result[index][0];
+        let g = result[index][1];
+        let b =result[index][2];
+        let rgb=`rgb(${r},${g},${b})`;
+       
+        squares[index].style.backgroundColor=rgb;
+        squares[index].classList.add("colored");
+    }
+}
+
+
+function drawImageToCanvas(image) {
+    const canvas = document.createElement('canvas');
+    canvas.width = image.width;
+    canvas.height = image.height;
+    canvas.getContext('2d').drawImage(image, 0, 0, image.width, image.height);
+    return canvas;
+}
+
 
 function InitEraser(){
     const squares = document.querySelectorAll(".square");
@@ -441,7 +501,20 @@ for(let i=brushSize-1;i>-brushSize;i--){
         }
     }
 }
+function handleImageUpload() 
+{
 
+var image = document.getElementById("open-file").files[0];
+
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+      document.getElementById("display-image").src = e.target.result;
+    }
+
+    reader.readAsDataURL(image);
+
+} 
 
 
 
