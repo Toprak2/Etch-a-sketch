@@ -166,3 +166,19 @@ input[type="range"]{
     max-width: max-content;
     border-radius: 50%;
 }
+input[type="file"] {
+    display: none;
+}
+.custom-file-upload {
+    padding: 10px 15px;
+    cursor: pointer;
+    border:solid 2px #b1d0e8;
+    background-color:#aaddec;
+    border-radius: 5px;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    min-width: 130px;
+    border-style: outset;
+    justify-content: center;
+}
