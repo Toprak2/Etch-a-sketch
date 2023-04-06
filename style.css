@@ -196,3 +196,11 @@ input[type="file"] {
     padding: 10px;
     font-size: 20px;
   }
+  .github-logo{
+    max-width: 25px;
+    display: block;
+    transition: 0.3s ease-in-out;
+  }
+  .github-logo:hover{
+    transform: rotate(360deg) scale(1.2);
+  }
