@@ -37,21 +37,27 @@
                 <div id="new-grid">
                 <div>New Grid</div>
                <div >
-                 <input type="range" min="1" max="100" value="1" id="new-grid-range">
-                 <div id="new-grid-value">1X1</div>
+                 <input type="range" min="1" max="100" value="16" id="new-grid-range">
+                 <div id="new-grid-value">16X16</div>
                </div>
                <div><button id="confirm"class="confirm"><img src="./images/confirm-icon.png" class="button-icon" alt=""></button></div>
                 </div>
 
             <button id="reset"><div class="button-text">Reset</div> </button>
+
+            <label for="upload" class="custom-file-upload">
+              <div class="button-text">Open</div>  <img src="./images/open-file-folder-icon.png" class="button-icon">
+            </label>
+            <input id="upload" type="file" accept=".png, .jpeg"/>
+
+
             <div class="dropdown">
                 <button id="download" class="dropdown-button" ><div class="button-text"> Download </div> <img src="./images/download-icon.png" class="button-icon""> </button>
                 <div id="download-dropdown" class="dropdown-content">
                   <button id="download-transparent">Transparent Background</button>
                   <button id="download-white">White Background</button>
                 </div>
-              </div>
-           
+            </div>
         </div>
     </div
 
