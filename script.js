@@ -17,16 +17,27 @@ const eraserSizeRange=document.querySelector("#eraser-size-range");
 const eraserSizeNumber=document.querySelector("#eraser-size-number");
 
 //global variables
-let brushSelected=true;
+let brushSelected=true; 
 let leftClickedOnTile=false;
 let amount=16;
 let brushSize=1;
 let eraserSize=1;
 let eraseSelected=false;
-
+let rainbowMode=false;
+const rainbowColors= ["rgb(255,0,0)","rgb(255,127,0)","rgb(255,255,0)","rgb(0,255,0)","rgb(0,0,255)","rgb(75,0,130)","rgb(148,0,211)"];
 //event listeners
 mainGrid.addEventListener("mouseleave",function(){
     leftClickedOnTile=false;
+})
+
+document.querySelector("#rainbow").addEventListener("click",function(){
+    if(rainbowMode){
+        rainbowMode=false;
+    }
+    else{
+        rainbowMode=true;
+    }
+    this.classList.toggle("selected");
 })
 
 brushSizeRange.addEventListener("input",function(){
@@ -135,7 +146,7 @@ document.querySelector("#brush-size").classList.add("hide");
 showGridButton.addEventListener("click",function(){
     showGrid();
     this.classList.toggle("selected");
-  })
+ })
 
 
 //create 16*16 grid as default otherwise create an enteredAmount*enteredAmount grid
@@ -440,56 +451,103 @@ function erase(currentDiv){
   }
 
 
- 
+ let getNextColorIndex =(function (){
+    let index=0;
+    
+    return function(){if(index===7){
+        index=0;
+    }return index++;};
+ })();
+
 function draw(currentDiv){
 
+ 
 const colorPicker=document.querySelector(".color-picker");
 let squares = document.querySelectorAll(".square");
 squares = Array.from(squares);
 let height=Math.sqrt(squares.length);
 let index =squares.indexOf(currentDiv);
-for(let i=brushSize-1;i>-brushSize;i--){
-    if(i>0){
-        for(let j=brushSize-i-1;j>-(brushSize-i);j--){
-            let divToDraw=index+j+height*i;
+if(rainbowMode){
+    
+    for(let i=brushSize-1;i>-brushSize;i--){
 
-            //check if the element we are trying to reach is inside the array's bounds
-            if((divToDraw)<squares.length && (index+j+height)>-1){
-                
-                let divYPos= Math.trunc(divToDraw/height);
-                let rowToDraw=Math.trunc((index+height*i)/height);
-                if(divYPos===rowToDraw){
-                    squares[divToDraw].style.backgroundColor=`${colorPicker.value}`;
-                    squares[divToDraw].classList.add("colored");
-                }
-            }
-        }
-    }
-    if(i===0){
-        for(let j=brushSize-1;j>=-(brushSize-1);j--){
-            let divToDraw=index+j+height*i;
+        
+        if(i>0){
+            for(let j=brushSize-i-1;j>-(brushSize-i);j--){
+                let divToDraw=index+j+height*i;
 
-            //check if the element we are trying to reach is inside the array's bounds
-            if((divToDraw)<squares.length && (index+j+height)>-1){
-                let divYPos= Math.trunc(divToDraw/height);
-                let rowToDraw=Math.trunc((index+height*i)/height);
-                if(divYPos===rowToDraw){
-                squares[divToDraw].style.backgroundColor=`${colorPicker.value}`;
-                squares[divToDraw].classList.add("colored");
-                }
-            }
-        }
-    }
-    if(i<0){
-        for(let j=brushSize+i-1;j>-(brushSize+i);j--){
-            let divToDraw=index+j+height*i;
-
-            //check if the element we are trying to reach is inside the array's bounds
-                if((divToDraw)>-1){
-                    //if the divs are above the grid don't draw
-                    if(index+height*i<0){
-                        continue;
+                //check if the element we are trying to reach is inside the array's bounds
+                if((divToDraw)<squares.length && (index+j+height)>-1){
+                    
+                    let divYPos= Math.trunc(divToDraw/height);
+                    let rowToDraw=Math.trunc((index+height*i)/height);
+                    if(divYPos===rowToDraw){
+                        squares[divToDraw].style.backgroundColor=rainbowColors[getNextColorIndex()];
+                        squares[divToDraw].classList.add("colored");
                     }
+                }
+            }
+        }
+        if(i===0){
+            for(let j=brushSize-1;j>=-(brushSize-1);j--){
+                let divToDraw=index+j+height*i;
+
+                //check if the element we are trying to reach is inside the array's bounds
+                if((divToDraw)<squares.length && (index+j+height)>-1){
+                    let divYPos= Math.trunc(divToDraw/height);
+                    let rowToDraw=Math.trunc((index+height*i)/height);
+                    if(divYPos===rowToDraw){
+                    squares[divToDraw].style.backgroundColor=rainbowColors[getNextColorIndex()];
+                    squares[divToDraw].classList.add("colored");
+                    }
+                }
+            }
+        }
+        if(i<0){
+            for(let j=brushSize+i-1;j>-(brushSize+i);j--){
+                let divToDraw=index+j+height*i;
+
+                //check if the element we are trying to reach is inside the array's bounds
+                    if((divToDraw)>-1){
+                        //if the divs are above the grid don't draw
+                        if(index+height*i<0){
+                            continue;
+                        }
+                        let divYPos= Math.trunc(divToDraw/height);
+                        let rowToDraw=Math.trunc((index+height*i)/height);
+                        if(divYPos===rowToDraw){
+                        squares[divToDraw].style.backgroundColor=rainbowColors[getNextColorIndex()];
+                        squares[divToDraw].classList.add("colored");
+                        }
+                    }
+                }
+            }
+        }
+}
+else{
+    for(let i=brushSize-1;i>-brushSize;i--){
+        if(i>0){
+            for(let j=brushSize-i-1;j>-(brushSize-i);j--){
+                let divToDraw=index+j+height*i;
+
+                //check if the element we are trying to reach is inside the array's bounds
+                if((divToDraw)<squares.length && (index+j+height)>-1){
+                    
+                    let divYPos= Math.trunc(divToDraw/height);
+                    let rowToDraw=Math.trunc((index+height*i)/height);
+                    if(divYPos===rowToDraw){
+                        squares[divToDraw].style.backgroundColor=`${colorPicker.value}`;
+                        squares[divToDraw].classList.add("colored");
+                    }
+                }
+            }
+        }
+        if(i===0){
+            for(let j=brushSize-1;j>=-(brushSize-1);j--){
+                let divToDraw=index+j+height*i;
+
+                //check if the element we are trying to reach is inside the array's bounds
+                if((divToDraw)<squares.length && (index+j+height)>-1){
                     let divYPos= Math.trunc(divToDraw/height);
                     let rowToDraw=Math.trunc((index+height*i)/height);
                     if(divYPos===rowToDraw){
@@ -499,7 +557,27 @@ for(let i=brushSize-1;i>-brushSize;i--){
                 }
             }
         }
-    }
+        if(i<0){
+            for(let j=brushSize+i-1;j>-(brushSize+i);j--){
+                let divToDraw=index+j+height*i;
+
+                //check if the element we are trying to reach is inside the array's bounds
+                    if((divToDraw)>-1){
+                        //if the divs are above the grid don't draw
+                        if(index+height*i<0){
+                            continue;
+                        }
+                        let divYPos= Math.trunc(divToDraw/height);
+                        let rowToDraw=Math.trunc((index+height*i)/height);
+                        if(divYPos===rowToDraw){
+                        squares[divToDraw].style.backgroundColor=`${colorPicker.value}`;
+                        squares[divToDraw].classList.add("colored");
+                        }
+                    }
+                }
+            }
+        }
+}
 }
 function handleImageUpload() 
 {
